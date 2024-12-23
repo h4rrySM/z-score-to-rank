@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <style>
+            .child {
+                display: inline-block;
+            }
+        </style>
+        <script>
+            function cal(){
+                const n = document.getElementById("n").value;
+                const mu = document.getElementById("mu").value;
+                const sigma = document.getElementById("sigma").value;
+                const x = document.getElementById("x").value;
+                var z = (x - mu) / sigma, p = 0.5, k_fact = 1, term = 1, limit = 0.00000001;
+                for(let k = 0; Math.abs(term) > limit; k++, k_fact *= k, p += term){
+                    term = .39894228 * Math.pow(-0.5,k) * Math.pow(z, 2 * k + 1) / (2 * k + 1) / k_fact;
+                }
+                document.getElementById("result").innerText = Math.ceil(n * (1 - p));
+            }
+        </script>
+    </head>
+    <body>
+        <div align="center">
+            <h1 align="center">등수 계산기</h1>
+            <div>
+                <h3 class="child">\(n=\)</h3>
+                <input type="number" class="child" id="n" />
+            </div>
+            <div>
+                <h3 class="child">\(\mu=\)</h3>
+                <input type="number" class="child" id="mu" />
+            </div>
+            <div>
+                <h3 class="child">\(\sigma=\)</h3>
+                <input type="number" class="child" id="sigma" />
+            </div>
+            <div>
+                <h3 class="child">\(x=\)</h3>
+                <input type="number" class="child" id="x" />
+            </div>
+            <div>
+                <button onclick="cal()">나의 등수는?</button>
+            </div>
+            <div>
+                <h3><b id="result"></b> 등</h3>
+            </div>
+        </div>
+    </body>
+</html>
